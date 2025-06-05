@@ -5,6 +5,7 @@ import QtQuick.Controls.Fusion
 Item {
     property alias cropRect: cropRect
     property bool cropping: false
+    property var cropConfirmDialog
     property var controller
 
     id: root

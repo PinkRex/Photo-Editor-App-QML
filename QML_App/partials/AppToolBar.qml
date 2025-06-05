@@ -37,7 +37,28 @@ Item {
                             }
                         }
                     }
-                    ToolButton { text: "Exit"; onClicked: Qt.quit() }
+                    ToolButton {
+                        text: "Previous Image"
+                        onClicked: {
+                            if (appState.getDefaultUrl() === appState.imageUrl) {
+                                appDialogs.errorDialog.open()
+                            } else {
+                                historyController.clearAll()
+                                viewController.previousImage()
+                            }
+                        }
+                    }
+                    ToolButton {
+                        text: "Next Image"
+                        onClicked: {
+                            if (appState.getDefaultUrl() === appState.imageUrl) {
+                                appDialogs.errorDialog.open()
+                            } else {
+                                historyController.clearAll()
+                                viewController.nextImage()
+                            }
+                        }
+                    }
                 }
                 Rectangle {
                     width: 1
@@ -85,28 +106,6 @@ Item {
                                 appDialogs.errorDialog.open()
                             } else {
                                 historyController.redo(appState.currentImage())
-                            }
-                        }
-                    }
-                    ToolButton {
-                        text: "Previous"
-                        onClicked: {
-                            if (appState.getDefaultUrl() === appState.imageUrl) {
-                                appDialogs.errorDialog.open()
-                            } else {
-                                historyController.clearAll()
-                                viewController.previousImage()
-                            }
-                        }
-                    }
-                    ToolButton {
-                        text: "Next"
-                        onClicked: {
-                            if (appState.getDefaultUrl() === appState.imageUrl) {
-                                appDialogs.errorDialog.open()
-                            } else {
-                                historyController.clearAll()
-                                viewController.nextImage()
                             }
                         }
                     }
@@ -167,9 +166,10 @@ Item {
                                 let startY = rect.y;
 
                                 if (!appViews.cropView.cropping) {
+                                    appDialogs.cropGuideDialog.open();
                                     appViews.cropView.cropping = true;
                                     appViews.cropView.setStartCoordinate(rect.x, rect.y, rect.width, rect.height);
-                                    statusController.setGuideText("Adjust the selection rectangle to define the crop area, then press 'Crop' to crop the image.");
+                                    statusController.setGuideText("Adjust the selection rectangle to define the crop area, then press 'Crop' again to crop the image.");
                                 } else {
                                     appViews.cropView.cropping = false;
                                     let crop = appViews.cropView.getCropArea();

@@ -26,8 +26,8 @@ ApplicationWindow {
         property string zoomOutShortcut:    "\t                         Ctrl+-"
         property string undoShortcut:       "\t                         Ctrl+Z"
         property string redoShortcut:       "\t             Ctrl+Shift+Z"
-        property string previousShortcut:   "\t                Left Arrow"
-        property string nextShortcut:       "\t              Right Arrow"
+        property string previousShortcut:   "         Left Arrow"
+        property string nextShortcut:       "\t             Right Arrow"
 
         Menu {
             id: fileMenu
@@ -71,11 +71,45 @@ ApplicationWindow {
                 }
             }
             MenuItem {
-                text: qsTr("Exit") + menuBar.exitShortcut
-                onTriggered: Qt.quit()
+                text: qsTr("Previous Image") + menuBar.previousShortcut
+                onTriggered: {
+                    if (appState.getDefaultUrl() === appState.imageUrl) {
+                        appDialogs.errorDialog.open()
+                    } else {
+                        historyController.clearAll()
+                        viewController.previousImage()
+                    }
+                }
                 Shortcut {
-                    sequence: "Shift+Escape"
-                    onActivated: Qt.quit()
+                    sequence: "Left"
+                    onActivated: {
+                        if (appState.getDefaultUrl() === appState.imageUrl) {
+                            appDialogs.errorDialog.open()
+                        } else {
+                            historyController.clearAll()
+                            viewController.previousImage()
+                        }
+                    }
+                }
+            }
+            MenuItem {
+                text: qsTr("Next Image") + menuBar.nextShortcut
+                onTriggered: {
+                    if (appState.getDefaultUrl() === appState.imageUrl) {
+                        appDialogs.errorDialog.open()
+                    } else {
+                        viewController.nextImage()
+                    }
+                }
+                Shortcut {
+                    sequence: "Right"
+                    onActivated: {
+                        if (appState.getDefaultUrl() === appState.imageUrl) {
+                            appDialogs.errorDialog.open()
+                        } else {
+                            viewController.nextImage()
+                        }
+                    }
                 }
             }
         }
@@ -164,48 +198,6 @@ ApplicationWindow {
                     }
                 }
             }
-            MenuItem {
-                text: qsTr("Previous") + menuBar.previousShortcut
-                onTriggered: {
-                    if (appState.getDefaultUrl() === appState.imageUrl) {
-                        appDialogs.errorDialog.open()
-                    } else {
-                        historyController.clearAll()
-                        viewController.previousImage()
-                    }
-                }
-                Shortcut {
-                    sequence: "Left"
-                    onActivated: {
-                        if (appState.getDefaultUrl() === appState.imageUrl) {
-                            appDialogs.errorDialog.open()
-                        } else {
-                            historyController.clearAll()
-                            viewController.previousImage()
-                        }
-                    }
-                }
-            }
-            MenuItem {
-                text: qsTr("Next") + menuBar.nextShortcut
-                onTriggered: {
-                    if (appState.getDefaultUrl() === appState.imageUrl) {
-                        appDialogs.errorDialog.open()
-                    } else {
-                        viewController.nextImage()
-                    }
-                }
-                Shortcut {
-                    sequence: "Right"
-                    onActivated: {
-                        if (appState.getDefaultUrl() === appState.imageUrl) {
-                            appDialogs.errorDialog.open()
-                        } else {
-                            viewController.nextImage()
-                        }
-                    }
-                }
-            }
         }
         Menu {
             id: editMenu
@@ -257,9 +249,10 @@ ApplicationWindow {
                         let startY = rect.y;
 
                         if (!appViews.cropView.cropping) {
+                            appDialogs.cropGuideDialog.open();
                             appViews.cropView.cropping = true;
                             appViews.cropView.setStartCoordinate(rect.x, rect.y, rect.width, rect.height);
-                            statusController.setGuideText("Adjust the selection rectangle to define the crop area, then press 'Crop' to crop the image.");
+                            statusController.setGuideText("Adjust the selection rectangle to define the crop area, then press 'Crop' again to crop the image.");
                         } else {
                             appViews.cropView.cropping = false;
                             let crop = appViews.cropView.getCropArea();
@@ -301,6 +294,20 @@ ApplicationWindow {
             title: qsTr("Help")
             MenuItem { text: qsTr("About"); onTriggered: appDialogs.aboutDialog.open() }
         }
+        Menu {
+            id: exitMenu
+            title: qsTr("Exit")
+            width: 230
+            MenuItem {
+                text: qsTr("Exit") + menuBar.exitShortcut
+                onTriggered: Qt.quit()
+                Shortcut {
+                    sequence: "Shift+Escape"
+                    onActivated: Qt.quit()
+                }
+            }
+        }
+
     }
 
     AppToolBar {

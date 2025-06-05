@@ -10,6 +10,7 @@ Item {
     property alias resizeDialog: resizeDialog
     property alias pluginConfirmDialog: pluginConfirmDialog
     property alias disabledDialog: disabledDialog
+    property alias cropGuideDialog: cropGuideDialog
 
     id: appDialogs
 
@@ -29,6 +30,13 @@ Item {
         customWidth: 400
         customHeight: 180
         isPluginConfirm: true
+    }
+
+    CustomDialog {
+        id: cropGuideDialog
+        text: "Adjust the selection rectangle to define the crop area,<br><br>" +
+              "then press 'Crop' again to crop the image."
+        customWidth: 450
     }
 
     CustomDialog {
