@@ -17,13 +17,13 @@ void EditController::setImageCropper(ImageCropper *cropper) {
     m_imageCropper = cropper;
 }
 
-static double calculateNextAngle(double current, double step = 90.0) {
-    current += step;
-    if (current >= 360.0) {
-        current -= 360.0;
-    }
-    return current;
-}
+// static double calculateNextAngle(double current, double step = 90.0) {
+//     current += step;
+//     if (current >= 360.0) {
+//         current -= 360.0;
+//     }
+//     return current;
+// }
 
 static cv::Mat rotatedImage(const cv::Mat &src, double angle) {
     double scale = 1.0;
@@ -40,16 +40,13 @@ static cv::Mat rotatedImage(const cv::Mat &src, double angle) {
 }
 
 void EditController::rotate(double step) {
-    auto currentAngle = AppState::instance()->getCurrentAngle();
-    currentAngle = calculateNextAngle(currentAngle, step);
-    AppState::instance()->setCurrentAngle(currentAngle);
+    // auto currentAngle = AppState::instance()->getCurrentAngle();
+    // currentAngle = calculateNextAngle(currentAngle, step);
+    // AppState::instance()->setCurrentAngle(currentAngle);
 
     cv::Mat currentImage = Helper::QPixmapToCvMat(AppState::instance()->currentImage());
-
     HistoryController::instance()->push(currentImage);
-
     cv::Mat rotated = rotatedImage(currentImage, step);
-
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(rotated));
     m_statusController->setEditedStatusText("(eddited image)");
 }
