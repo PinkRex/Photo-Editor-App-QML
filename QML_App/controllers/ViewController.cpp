@@ -18,7 +18,6 @@ void ViewController::previousImage() {
     if (index > 0) {
         const QString path = dir.absoluteFilePath(fileNames.at(index - 1));
         m_imageController->setImagePath(path);
-        AppState::instance()->setCurrentAngle(0);
     } else {
         emit showFirstImageDialog();
     }
@@ -35,7 +34,6 @@ void ViewController::nextImage() {
     if (index < fileNames.length() - 1) {
         const QString path = dir.absoluteFilePath(fileNames.at(index + 1));
         m_imageController->setImagePath(path);
-        AppState::instance()->setCurrentAngle(0);
     } else {
         emit showFirstImageDialog();
     }

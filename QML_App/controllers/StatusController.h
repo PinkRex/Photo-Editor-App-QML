@@ -16,8 +16,6 @@ public:
     QString statusText() const;
     Q_INVOKABLE int getWidth() const;
     Q_INVOKABLE int getHeight() const;
-
-public slots:
     void setStatusText(const QString &path);
     Q_INVOKABLE void setEditedStatusText(const QString &text);
     Q_INVOKABLE void setGuideText(const QString &text);

@@ -13,14 +13,11 @@ public:
 
     QString imagePath() const;
     void setStatusController(StatusController *controller);
-
-public slots:
     void setImagePath(const QString &path);
 
 private:
     QString m_imagePath;
     StatusController *m_statusController = nullptr;
 };
-
 
 #endif // IMAGECONTROLLER_H

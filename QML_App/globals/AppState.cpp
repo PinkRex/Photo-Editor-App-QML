@@ -42,14 +42,6 @@ void AppState::setImageProvider(ImageProvider *provider) {
     m_imageProvider = provider;
 }
 
-// void AppState::setCurrentAngle(double angle) {
-//     m_currentAngle = angle;
-// }
-
-// double AppState::getCurrentAngle() const {
-//     return m_currentAngle;
-// }
-
 int AppState::getWidth() const {
     QPixmap pixmap = currentImage();
     return pixmap.width();

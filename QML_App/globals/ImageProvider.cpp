@@ -6,21 +6,8 @@ void ImageProvider::setPixmap(const QPixmap &pixmap) {
     m_pixmap = pixmap;
 }
 
-void ImageProvider::setPreviewPixmap(const QPixmap &pixmap) {
-    m_preview = pixmap;
-}
-
 QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize) {
-    QPixmap source;
-    QString basedId = id.split('?').constFirst();
-
-    if (basedId == "main") {
-        source = m_pixmap;
-    } else {
-        source = m_preview;
-    }
-
-    if (source.isNull()) {
+    if (m_pixmap.isNull()) {
         QPixmap empty(1, 1);
         empty.fill(Qt::transparent);
         if (size)
@@ -29,10 +16,10 @@ QPixmap ImageProvider::requestPixmap(const QString &id, QSize *size, const QSize
     }
 
     if (size)
-        *size = source.size();
+        *size = m_pixmap.size();
 
     if (!requestedSize.isEmpty())
-        return source.scaled(requestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        return m_pixmap.scaled(requestedSize, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    return source;
+    return m_pixmap;
 }

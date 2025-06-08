@@ -19,8 +19,6 @@ public:
     void setCurrentPath(const QString &path);
     void setPluginImage(const QPixmap &pixmap);
     void setImageProvider(ImageProvider *provider);
-    // void setCurrentAngle(double angle);
-    // double getCurrentAngle() const;
     QString imageUrl() const { return QString("image://app/main?version=%1").arg(m_version); }
 
     Q_INVOKABLE QString currentPath() const;
@@ -45,7 +43,6 @@ private:
     ImageProvider *m_imageProvider = nullptr;
 
     int m_version = 0;
-    // double m_currentAngle = 0.0;
 };
 
 #endif // APPSTATE_H
