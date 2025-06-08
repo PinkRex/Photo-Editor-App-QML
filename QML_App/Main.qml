@@ -8,10 +8,23 @@ import "partials"
 
 ApplicationWindow {
     id: mainWindow
-    width: 1100
-    height: 700
+    width: 1400
+    height: 750
     visible: true
     title: qsTr("Photo Editor")
+    flags: Qt.Window |
+           Qt.CustomizeWindowHint |
+           Qt.WindowTitleHint |
+           Qt.WindowCloseButtonHint
+
+
+    Component.onCompleted: {
+        let screen = mainWindow.screen;
+        let screenWidth = screen.width;
+        let screenHeight = screen.height;
+        mainWindow.x = (screenWidth - mainWindow.width) / 2;
+        mainWindow.y = (screenHeight - mainWindow.height) / 2;
+    }
 
     menuBar: MenuBar {
         id: menuBar
@@ -225,6 +238,26 @@ ApplicationWindow {
                 }
             }
             MenuItem {
+                text: qsTr("Flip Vertical")
+                onTriggered: {
+                    if (appState.getDefaultUrl() === appState.imageUrl) {
+                        appDialogs.errorDialog.open()
+                    } else {
+                        // TODO: Add function
+                    }
+                }
+            }
+            MenuItem {
+                text: qsTr("Flip Horizontal")
+                onTriggered: {
+                    if (appState.getDefaultUrl() === appState.imageUrl) {
+                        appDialogs.errorDialog.open()
+                    } else {
+                        // TODO: Add function
+                    }
+                }
+            }
+            MenuItem {
                 text: qsTr("Resize")
                 onTriggered: {
                     if (appState.getDefaultUrl() === appState.imageUrl) {
@@ -307,19 +340,143 @@ ApplicationWindow {
                 }
             }
         }
-
     }
 
-    AppToolBar {
-        id: appToolBar
-        appFileDialogs: appFileDialogs
-        appDialogs: appDialogs
-        appViews: appViews
-    }
-
-    AppViews {
-        id: appViews
+    RowLayout {
+        id: mainContainer
         anchors.fill: parent
+
+        ColumnLayout {
+            id: leftColumn
+            Layout.preferredWidth: parent.width * 0.8
+            Layout.fillHeight: true
+
+            AppToolBar {
+                id: appToolBar
+                appFileDialogs: appFileDialogs
+                appDialogs: appDialogs
+                appViews: appViews
+            }
+
+            AppViews {
+                id: appViews
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+            }
+
+            // footer
+            Label {
+                id: statusBar
+                text: statusController ? statusController.statusText : ""
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                font.italic: true
+                Layout.preferredHeight: 40
+                Layout.fillWidth: true
+            }
+        }
+
+        Rectangle {
+            width: 1
+            color: "#cccccc"
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignVCenter
+        }
+
+        ColumnLayout {
+            id: rightColumn
+            Layout.preferredWidth: parent.width * 0.2
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.rightMargin: 6
+
+            Text {
+                textFormat: Text.RichText
+                text: "<span style='font-size:25px;'>📂</span> <span style='font-size:16px; font-weight:bold;'>Image List</span>"
+                padding: 6
+            }
+
+            Rectangle {
+                id: imageListArea
+                Layout.fillWidth: true
+                Layout.preferredHeight: parent.height * 0.3
+                border.color: "#cccccc"
+                Text {
+                    anchors.centerIn: parent
+                    text: "Image List (scrollable)"
+                }
+            }
+
+            Rectangle {
+                height: 1
+                color: "#cccccc"
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignVCenter
+            }
+
+            Text {
+                textFormat: Text.RichText
+                text: "<span style='font-size:25px;'>📦</span> <span style='font-size:16px; font-weight:bold;'>Plugin Manager</span>"
+                padding: 6
+            }
+
+            Rectangle {
+                id: pluginListArea
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                ColumnLayout {
+                    anchors.fill: parent
+
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.alignment: Qt.AlignTop
+                        border.color: "#cccccc"
+                        Text {
+                            anchors.centerIn: parent
+                            text: "Plugin Manager Area"
+                            color: "#333333"
+                        }
+                    }
+
+                    RowLayout {
+                        Layout.alignment: Qt.AlignBottom | Qt.AlignHCenter
+                        Layout.fillWidth: true
+                        Layout.bottomMargin: 8
+                        spacing: 10
+
+                        Button {
+                            text: "Enable"
+                            Layout.fillWidth: true
+                            onClicked: {
+                                console.log("Enable clicked")
+                                // TODO: trigger enablePlugin()
+                            }
+                        }
+
+                        Button {
+                            text: "Disable"
+                            Layout.fillWidth: true
+                            onClicked: {
+                                console.log("Disable clicked")
+                                // TODO: trigger disablePlugin()
+                            }
+                        }
+
+                        Button {
+                            text: "Unload"
+                            Layout.fillWidth: true
+                            onClicked: {
+                                console.log("Unload clicked")
+                                // TODO: trigger unloadPlugin()
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     PluginsManager {
@@ -329,15 +486,6 @@ ApplicationWindow {
     SnipOverlay {
         id: snipOverlay
         visible: false
-    }
-
-    footer: Label {
-        id: statusBar
-        text: statusController ? statusController.statusText : ""
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.italic: true
-        height: 40
     }
 
     AppConnections {

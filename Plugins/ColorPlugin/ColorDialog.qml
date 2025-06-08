@@ -96,7 +96,7 @@ Rectangle {
                 }
             }
 
-            Text { text: "Green Scale: " + manualBlueScaleSlider.value }
+            Text { text: "Blue Scale: " + manualBlueScaleSlider.value }
             Slider {
                 id: manualBlueScaleSlider
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -112,7 +112,7 @@ Rectangle {
                 }
             }
 
-            Text { text: "Green Scale: " + manualAlphaScaleSlider.value }
+            Text { text: "Alpha Scale: " + manualAlphaScaleSlider.value }
             Slider {
                 id: manualAlphaScaleSlider
                 anchors.horizontalCenter: parent.horizontalCenter

@@ -16,9 +16,7 @@ void SnipController::setWindow(QWindow *w) {
 }
 
 void SnipController::startSnip() {
-    if (m_mainWindow) m_mainWindow->showMinimized();
-
-    QTimer::singleShot(100, this, [this]() {
+    QTimer::singleShot(50, this, [this]() {
         emit showOverlay();
     });
 }
@@ -34,6 +32,4 @@ void SnipController::finishSnip(int x, int y, int w, int h) {
 
     m_statusController->setEditedStatusText("Snapped image");
     AppState::instance()->setCurrentImage(cropped);
-
-    if (m_mainWindow) m_mainWindow->showNormal();
 }

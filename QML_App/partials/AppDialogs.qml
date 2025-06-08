@@ -16,7 +16,7 @@ Item {
 
     CustomDialog {
         id: errorDialog
-        text: "No image is currently open."
+        text: "⚠️ No image is currently open. ⚠️"
     }
 
     CustomDialog {

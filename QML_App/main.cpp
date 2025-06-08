@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QIcon>
 #include "globals/AppState.h"
 #include "globals/ImageProvider.h"
 #include "controllers/FileController.h"
@@ -17,6 +18,7 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    app.setWindowIcon(QIcon(":/icons/appIcon.png"));
     QQmlApplicationEngine engine;
 
     FileController fileController;

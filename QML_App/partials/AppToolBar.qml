@@ -20,15 +20,28 @@ Item {
                     id: fileToolbar
                     spacing: 5
                     Layout.leftMargin: 5
-                    ToolButton { text: "Open"; onClicked: appFileDialogs.chooseImageDialog.open() }
                     ToolButton {
-                        text: "Screen Snip"
-                        onClicked: {
-                            snipController.startSnip()
-                        }
+                        icon.source: "qrc:/icons/open.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Open Image"
+                        onClicked: appFileDialogs.chooseImageDialog.open()
                     }
                     ToolButton {
-                        text: "Save As"
+                        icon.source: "qrc:/icons/screenSnip.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Capture Current Screen"
+                        onClicked: snipController.startSnip()
+                    }
+                    ToolButton {
+                        icon.source: "qrc:/icons/saveAs.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Save File As ..."
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -37,8 +50,18 @@ Item {
                             }
                         }
                     }
+                    Rectangle {
+                        width: 1
+                        color: "#cccccc"
+                        height: 20
+                        Layout.alignment: Qt.AlignVCenter
+                    }
                     ToolButton {
-                        text: "Previous Image"
+                        icon.source: "qrc:/icons/previous.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Previous Image"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -49,7 +72,11 @@ Item {
                         }
                     }
                     ToolButton {
-                        text: "Next Image"
+                        icon.source: "qrc:/icons/next.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Next Image"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -70,7 +97,11 @@ Item {
                     id: viewToolbar
                     spacing: 5
                     ToolButton {
-                        text: "Zoom In"
+                        icon.source: "qrc:/icons/zoomIn.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Zoom In"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -80,7 +111,11 @@ Item {
                         }
                     }
                     ToolButton {
-                        text: "Zoom Out"
+                        icon.source: "qrc:/icons/zoomOut.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Zoom Out"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -89,8 +124,18 @@ Item {
                             }
                         }
                     }
+                    Rectangle {
+                        width: 1
+                        color: "#cccccc"
+                        height: 20
+                        Layout.alignment: Qt.AlignVCenter
+                    }
                     ToolButton {
-                        text: "Undo"
+                        icon.source: "qrc:/icons/undo.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Undo Action"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -100,12 +145,30 @@ Item {
                         }
                     }
                     ToolButton {
-                        text: "Redo"
+                        icon.source: "qrc:/icons/redo.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Redo Action"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
                             } else {
                                 historyController.redo(appState.currentImage())
+                            }
+                        }
+                    }
+                    ToolButton {
+                        icon.source: "qrc:/icons/reset.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Reset Image"
+                        onClicked: {
+                            if (appState.getDefaultUrl() === appState.imageUrl) {
+                                appDialogs.errorDialog.open()
+                            } else {
+                                fileController.openImage(appState.currentPath);
                             }
                         }
                     }
@@ -120,7 +183,11 @@ Item {
                     id: editToolBar
                     spacing: 5
                     ToolButton {
-                        text: "Rotate Left"
+                        icon.source: "qrc:/icons/rotateLeft.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Rotate Left 90°"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -131,7 +198,11 @@ Item {
                         }
                     }
                     ToolButton {
-                        text: "Rotate Right"
+                        icon.source: "qrc:/icons/rotateRight.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Rotate Right 90°"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -142,7 +213,46 @@ Item {
                         }
                     }
                     ToolButton {
-                        text: "Resize"
+                        icon.source: "qrc:/icons/flipVertical.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Flip Vertical"
+                        onClicked: {
+                            if (appState.getDefaultUrl() === appState.imageUrl) {
+                                appDialogs.errorDialog.open()
+                            } else {
+                                // TODO: Add funtion
+                            }
+                        }
+                    }
+
+                    ToolButton {
+                        icon.source: "qrc:/icons/flipHorizontal.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Flip Horizontal"
+                        onClicked: {
+                            if (appState.getDefaultUrl() === appState.imageUrl) {
+                                appDialogs.errorDialog.open()
+                            } else {
+                                // TODO: Add function
+                            }
+                        }
+                    }
+                    Rectangle {
+                        width: 1
+                        color: "#cccccc"
+                        height: 20
+                        Layout.alignment: Qt.AlignVCenter
+                    }
+                    ToolButton {
+                        icon.source: "qrc:/icons/resize.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Resize Image"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -153,7 +263,11 @@ Item {
                         }
                     }
                     ToolButton {
-                        text: "Crop"
+                        icon.source: "qrc:/icons/crop.png"
+                        icon.width: 25
+                        icon.height: 25
+                        ToolTip.visible: hovered
+                        ToolTip.text: "Crop Image"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
@@ -175,16 +289,6 @@ Item {
                                     let crop = appViews.cropView.getCropArea();
                                     editController.crop(crop.x, crop.y, crop.width, crop.height, startX, startY, viewWidth, viewHeight);
                                 }
-                            }
-                        }
-                    }
-                    ToolButton {
-                        text: "Reset"
-                        onClicked: {
-                            if (appState.getDefaultUrl() === appState.imageUrl) {
-                                appDialogs.errorDialog.open()
-                            } else {
-                                fileController.openImage(appState.currentPath);
                             }
                         }
                     }

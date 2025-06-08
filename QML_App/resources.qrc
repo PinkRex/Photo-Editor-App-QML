@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/rotateRight.png</file>
+        <file>icons/rotateLeft.png</file>
+        <file>icons/resize.png</file>
+        <file>icons/reset.png</file>
+        <file>icons/redo.png</file>
+        <file>icons/previous.png</file>
+        <file>icons/open.png</file>
+        <file>icons/next.png</file>
+        <file>icons/flipVertical.png</file>
+        <file>icons/flipHorizontal.png</file>
+        <file>icons/crop.png</file>
+        <file>icons/zoomOut.png</file>
+        <file>icons/zoomIn.png</file>
+        <file>icons/undo.png</file>
+        <file>icons/screenSnip.png</file>
+        <file>icons/saveAs.png</file>
+        <file>icons/appIcon.png</file>
+    </qresource>
+</RCC>
