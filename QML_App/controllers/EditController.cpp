@@ -31,11 +31,26 @@ static cv::Mat rotatedImage(const cv::Mat &src, double angle) {
     return rotated;
 }
 
+static cv::Mat flippedImage(const cv::Mat &src, bool isVertical) {
+    cv::Mat flipped;
+    int flipCode = isVertical ? 0 : 1; // 0 = vertical, 1 = horizontal
+    cv::flip(src, flipped, flipCode);
+    return flipped;
+}
+
 void EditController::rotate(double step) {
     cv::Mat currentImage = Helper::QPixmapToCvMat(AppState::instance()->currentImage());
     HistoryController::instance()->push(currentImage);
     cv::Mat rotated = rotatedImage(currentImage, step);
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(rotated));
+    m_statusController->setEditedStatusText("(eddited image)");
+}
+
+void EditController::flip(bool isVertical) {
+    cv::Mat currentImage = Helper::QPixmapToCvMat(AppState::instance()->currentImage());
+    HistoryController::instance()->push(currentImage);
+    cv::Mat flipped = flippedImage(currentImage, isVertical);
+    AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(flipped));
     m_statusController->setEditedStatusText("(eddited image)");
 }
 

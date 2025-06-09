@@ -57,7 +57,13 @@ ApplicationWindow {
             }
             MenuItem {
                 text: qsTr("Screen Snip") + menuBar.screenSnipShortcut
-                onTriggered: snipController.startSnip()
+                onTriggered: {
+                    if (appState.getDefaultUrl() === appState.imageUrl) {
+                        snipController.startSnip()
+                    } else {
+                        appDialogs.snipWarningDialog.open()
+                    }
+                }
                 Shortcut {
                     sequence: "Ctrl+Shift+S"
                     onActivated: snipController.startSnip()
@@ -243,7 +249,8 @@ ApplicationWindow {
                     if (appState.getDefaultUrl() === appState.imageUrl) {
                         appDialogs.errorDialog.open()
                     } else {
-                        // TODO: Add function
+                        appViews.imageViewArea.resetScale()
+                        editController.flip(true)
                     }
                 }
             }
@@ -253,7 +260,8 @@ ApplicationWindow {
                     if (appState.getDefaultUrl() === appState.imageUrl) {
                         appDialogs.errorDialog.open()
                     } else {
-                        // TODO: Add function
+                        appViews.imageViewArea.resetScale()
+                        editController.flip(false)
                     }
                 }
             }
@@ -392,7 +400,7 @@ ApplicationWindow {
 
             Text {
                 textFormat: Text.RichText
-                text: "<span style='font-size:25px;'>📂</span> <span style='font-size:16px; font-weight:bold;'>Image List</span>"
+                text: "<span style='font-size:25px;'>🕒</span> <span style='font-size:16px; font-weight:bold;'>Undo History</span>"
                 padding: 6
             }
 
@@ -403,7 +411,7 @@ ApplicationWindow {
                 border.color: "#cccccc"
                 Text {
                     anchors.centerIn: parent
-                    text: "Image List (scrollable)"
+                    text: "Undo Stack As List View"
                 }
             }
 
@@ -416,7 +424,7 @@ ApplicationWindow {
 
             Text {
                 textFormat: Text.RichText
-                text: "<span style='font-size:25px;'>📦</span> <span style='font-size:16px; font-weight:bold;'>Plugin Manager</span>"
+                text: "<span style='font-size:25px;'>📜</span> <span style='font-size:16px; font-weight:bold;'>Action Logger</span>"
                 padding: 6
             }
 
@@ -435,7 +443,7 @@ ApplicationWindow {
                         border.color: "#cccccc"
                         Text {
                             anchors.centerIn: parent
-                            text: "Plugin Manager Area"
+                            text: "Logger Content"
                             color: "#333333"
                         }
                     }
@@ -447,7 +455,7 @@ ApplicationWindow {
                         spacing: 10
 
                         Button {
-                            text: "Enable"
+                            text: "Clear"
                             Layout.fillWidth: true
                             onClicked: {
                                 console.log("Enable clicked")
@@ -456,7 +464,7 @@ ApplicationWindow {
                         }
 
                         Button {
-                            text: "Disable"
+                            text: "Copy"
                             Layout.fillWidth: true
                             onClicked: {
                                 console.log("Disable clicked")
@@ -465,7 +473,7 @@ ApplicationWindow {
                         }
 
                         Button {
-                            text: "Unload"
+                            text: "Export"
                             Layout.fillWidth: true
                             onClicked: {
                                 console.log("Unload clicked")
@@ -475,7 +483,6 @@ ApplicationWindow {
                     }
                 }
             }
-
         }
     }
 

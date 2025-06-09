@@ -7,6 +7,7 @@ Popup {
     property double customWidth: 300
     property double customHeight: 140
     property bool isPluginConfirm: false
+    property bool isSnipWarning: false
 
     id: dialog
     anchors.centerIn: parent
@@ -48,7 +49,7 @@ Popup {
 
         Button {
             text: "OK"
-            visible: !isPluginConfirm
+            visible: !isPluginConfirm && !isSnipWarning
             width: parent.width * 0.5
             height: 40
             anchors.horizontalCenter: parent.horizontalCenter
@@ -66,6 +67,27 @@ Popup {
                 onClicked: {
                     appState.setCurrentImage(appState.pluginImage())
                     dialog.close()
+                }
+            }
+            Button {
+                text: "Cancel"
+                width: dialog.width * 0.4
+                height: 40
+                onClicked: dialog.close()
+            }
+        }
+
+        Row {
+            spacing: 20
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: isSnipWarning
+            Button {
+                text: "Proceed"
+                width: dialog.width * 0.4
+                height: 40
+                onClicked: {
+                    dialog.close()
+                    snipController.startSnip()
                 }
             }
             Button {

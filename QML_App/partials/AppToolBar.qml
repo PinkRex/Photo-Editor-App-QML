@@ -34,7 +34,13 @@ Item {
                         icon.height: 25
                         ToolTip.visible: hovered
                         ToolTip.text: "Capture Current Screen"
-                        onClicked: snipController.startSnip()
+                        onClicked: {
+                            if (appState.getDefaultUrl() === appState.imageUrl) {
+                                snipController.startSnip()
+                            } else {
+                                appDialogs.snipWarningDialog.open()
+                            }
+                        }
                     }
                     ToolButton {
                         icon.source: "qrc:/icons/saveAs.png"
@@ -222,7 +228,8 @@ Item {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
                             } else {
-                                // TODO: Add funtion
+                                appViews.imageViewArea.resetScale()
+                                editController.flip(true)
                             }
                         }
                     }
@@ -237,7 +244,8 @@ Item {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
                             } else {
-                                // TODO: Add function
+                                appViews.imageViewArea.resetScale()
+                                editController.flip(false)
                             }
                         }
                     }

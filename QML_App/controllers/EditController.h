@@ -16,6 +16,7 @@ public:
     explicit EditController(QObject *parent = nullptr);
 
     Q_INVOKABLE void rotate(double step);
+    Q_INVOKABLE void flip(bool isVertical);
     Q_INVOKABLE void resize(int newWidth, int newHeight);
     Q_INVOKABLE void crop(int cropX, int cropY, int cropWidth, int cropHeight, int startX, int startY, int viewWidth, int viewHeight);
 

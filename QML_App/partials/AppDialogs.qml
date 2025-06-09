@@ -11,12 +11,13 @@ Item {
     property alias pluginConfirmDialog: pluginConfirmDialog
     property alias disabledDialog: disabledDialog
     property alias cropGuideDialog: cropGuideDialog
+    property alias snipWarningDialog: snipWarningDialog
 
     id: appDialogs
 
     CustomDialog {
         id: errorDialog
-        text: "⚠️ No image is currently open. ⚠️"
+        text: "No image is currently open."
     }
 
     CustomDialog {
@@ -33,6 +34,15 @@ Item {
     }
 
     CustomDialog {
+        id: snipWarningDialog
+        text: "There is currently an image open. Proceeding with a screenshot<br><br>" +
+              "will discard the current image. Are you sure you want to continue?"
+        customWidth: 550
+        customHeight: 180
+        isSnipWarning: true
+    }
+
+    CustomDialog {
         id: cropGuideDialog
         text: "Adjust the selection rectangle to define the crop area,<br><br>" +
               "then press 'Crop' again to crop the image."
@@ -42,14 +52,14 @@ Item {
     CustomDialog {
         id: lastImageDialog
         customWidth: 350
-        text: "This is the last image in the folder.<br>" +
+        text: "This is the last image in the folder.<br><br>" +
               "There are no more images to display."
     }
 
     CustomDialog {
         id: firstImageDialog
         customWidth: 350
-        text: "This is the first image in the folder.<br>" +
+        text: "This is the first image in the folder.<br><br>" +
               "There are no previous images to display."
     }
 
