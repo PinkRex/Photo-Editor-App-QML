@@ -15,14 +15,22 @@ Item {
     property alias copySuccessDialog: copySuccessDialog
     property alias exportLogSuccessDialog: exportLogSuccessDialog
     property alias logListEmptyDialog: logListEmptyDialog
+    property alias saveSuccessDialog: saveSuccessDialog
 
     property string exportText: "Export Success."
+    property string saveText: "Image saved successfully."
 
     id: appDialogs
 
     CustomDialog {
         id: errorDialog
         text: "No image is currently open."
+    }
+
+    CustomDialog {
+        id: saveSuccessDialog
+        text: saveText
+        customWidth: 500
     }
 
     CustomDialog {

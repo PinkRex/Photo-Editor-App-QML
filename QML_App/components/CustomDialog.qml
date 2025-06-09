@@ -66,6 +66,10 @@ Popup {
                 height: 40
                 onClicked: {
                     appState.setCurrentImage(appState.pluginImage())
+                    appState.setEdittingBaseImage(appState.pluginImage())
+
+                    let log = "[Override] " + appState.pluginName()
+                    actionLog.pushAction(log)
                     dialog.close()
                 }
             }
@@ -73,7 +77,11 @@ Popup {
                 text: "Cancel"
                 width: dialog.width * 0.4
                 height: 40
-                onClicked: dialog.close()
+                onClicked: {
+                    let log = "[Canceled] " + appState.pluginName()
+                    actionLog.pushAction(log)
+                    dialog.close()
+                }
             }
         }
 

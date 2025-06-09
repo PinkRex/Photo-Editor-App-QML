@@ -26,6 +26,14 @@ Item {
     }
 
     Connections {
+        target: fileController
+        function onShowSaveSuccessDialog(path) {
+            appDialogs.saveText = "Image saved successfully at: " + path
+            appDialogs.saveSuccessDialog.open()
+        }
+    }
+
+    Connections {
         target: actionLog
         function onShowCopySuccessDialog() {
             appDialogs.copySuccessDialog.open()

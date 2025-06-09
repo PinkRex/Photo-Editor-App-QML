@@ -17,5 +17,7 @@
         <file>icons/screenSnip.png</file>
         <file>icons/saveAs.png</file>
         <file>icons/appIcon.png</file>
+        <file>icons/contrast.png</file>
+        <file>icons/bright.png</file>
     </qresource>
 </RCC>
