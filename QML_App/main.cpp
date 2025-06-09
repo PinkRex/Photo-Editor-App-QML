@@ -12,6 +12,7 @@
 #include "controllers/EditController.h"
 #include "controllers/HistoryController.h"
 #include "controllers/PluginController.h"
+#include "controllers/ActionLogController.h"
 #include "utils/ImageCropper.h"
 #include "globals/AppContext.h"
 
@@ -29,6 +30,7 @@ int main(int argc, char *argv[])
     EditController editController;
     PluginController pluginController;
     AppState* appState = AppState::instance();
+    ActionLogController *actionLog = ActionLogController::instance();
     HistoryController* historyController = HistoryController::instance();
     ImageProvider* imageProvider = new ImageProvider();
     ImageCropper* cropper = new ImageCropper();
@@ -42,6 +44,7 @@ int main(int argc, char *argv[])
         &editController,
         &pluginController,
         appState,
+        actionLog,
         historyController,
         imageProvider,
         cropper);

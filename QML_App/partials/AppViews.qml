@@ -15,6 +15,7 @@ Item {
         anchors.topMargin: 67
         toolbarMargin: 67
         controller: appState
+        logger: actionLog
     }
 
     CropView {

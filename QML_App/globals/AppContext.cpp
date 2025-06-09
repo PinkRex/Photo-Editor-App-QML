@@ -7,6 +7,7 @@
 #include "controllers/EditController.h"
 #include "controllers/PluginController.h"
 #include "controllers/HistoryController.h"
+#include "controllers/ActionLogController.h"
 #include "AppState.h"
 #include "ImageProvider.h"
 #include "utils/ImageCropper.h"
@@ -21,6 +22,7 @@ AppContext::AppContext(FileController *fileCtrl,
                        EditController *editCtrl,
                        PluginController *pluginCtrl,
                        AppState *appState,
+                       ActionLogController *actionLog,
                        HistoryController *historyCtrl,
                        ImageProvider *imageProvider,
                        ImageCropper *cropper)
@@ -32,6 +34,7 @@ AppContext::AppContext(FileController *fileCtrl,
     , editController(editCtrl)
     , pluginController(pluginCtrl)
     , appState(appState)
+    , actionLog(actionLog)
     , historyController(historyCtrl)
     , imageProvider(imageProvider)
     , cropper(cropper)
@@ -61,6 +64,7 @@ void AppContext::setup(QQmlApplicationEngine& engine)
     // Expose controllers and app state to QML
     QQmlContext *context = engine.rootContext();
     context->setContextProperty("appState", appState);
+    context->setContextProperty("actionLog", actionLog);
     context->setContextProperty("historyController", historyController);
     context->setContextProperty("editController", editController);
     context->setContextProperty("fileController", fileController);

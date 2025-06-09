@@ -1,5 +1,6 @@
 #include "FileController.h"
 #include "globals/AppState.h"
+#include "controllers/ActionLogController.h"
 
 FileController::FileController(QObject *parent) : QObject(parent) {}
 
@@ -7,7 +8,7 @@ void FileController::setImageController(ImageController *controller) {
     m_imageController = controller;
 }
 
-void FileController::openImage(const QString &filePath) {
+void FileController::openImage(const QString &filePath, bool isReset) {
     QFileInfo fileInfo(filePath);
     if (!fileInfo.exists() || !fileInfo.isFile()) {
         qWarning() << "Invalid file path:" << filePath;
@@ -16,6 +17,13 @@ void FileController::openImage(const QString &filePath) {
 
     if (m_imageController) {
         m_imageController->setImagePath(filePath);
+    }
+
+    // Log action
+    if (!isReset) {
+        ActionLogController::instance()->pushAction(QString("Open file: %1").arg(filePath));
+    } else {
+        ActionLogController::instance()->pushAction(QString("Reset to file: %1").arg(filePath));
     }
 }
 
@@ -42,5 +50,6 @@ void FileController::saveImageAs(const QString &filePath) {
         return;
     }
 
-    qDebug() << "Saved image to:" << finalPath;
+    // Log action
+    ActionLogController::instance()->pushAction(QString("Saved file as: %1").arg(finalPath));
 }

@@ -1,5 +1,6 @@
 #include "ViewController.h"
 #include "globals/AppState.h"
+#include "controllers/ActionLogController.h"
 
 ViewController::ViewController(QObject *parent) : QObject(parent) {}
 
@@ -18,6 +19,9 @@ void ViewController::previousImage() {
     if (index > 0) {
         const QString path = dir.absoluteFilePath(fileNames.at(index - 1));
         m_imageController->setImagePath(path);
+
+        // Log action
+        ActionLogController::instance()->pushAction(QString("Previous image: %1").arg(path));
     } else {
         emit showFirstImageDialog();
     }
@@ -34,6 +38,9 @@ void ViewController::nextImage() {
     if (index < fileNames.length() - 1) {
         const QString path = dir.absoluteFilePath(fileNames.at(index + 1));
         m_imageController->setImagePath(path);
+
+        // Log action
+        ActionLogController::instance()->pushAction(QString("Next image: %1").arg(path));
     } else {
         emit showFirstImageDialog();
     }

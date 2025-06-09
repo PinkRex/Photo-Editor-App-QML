@@ -174,7 +174,7 @@ Item {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
                             } else {
-                                fileController.openImage(appState.currentPath);
+                                fileController.openImage(appState.currentPath, true);
                             }
                         }
                     }

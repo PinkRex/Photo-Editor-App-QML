@@ -13,7 +13,7 @@ class FileController : public QObject {
 public:
     explicit FileController(QObject *parent = nullptr);
 
-    Q_INVOKABLE void openImage(const QString &filePath);
+    Q_INVOKABLE void openImage(const QString &filePath, bool isReset = false);
     Q_INVOKABLE void saveImageAs(const QString &filePath);
 
     void setImageController(ImageController *controller);

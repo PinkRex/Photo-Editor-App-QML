@@ -12,6 +12,7 @@ class ViewController;
 class EditController;
 class PluginController;
 class AppState;
+class ActionLogController;
 class HistoryController;
 class ImageProvider;
 class ImageCropper;
@@ -27,6 +28,7 @@ public:
                EditController *editCtrl,
                PluginController *pluginCtrl,
                AppState *appState,
+               ActionLogController *actionLog,
                HistoryController *historyCtrl,
                ImageProvider *imageProvider,
                ImageCropper *cropper);
@@ -44,6 +46,7 @@ private:
     PluginController *pluginController;
 
     AppState *appState;
+    ActionLogController *actionLog;
     HistoryController *historyController;
     ImageProvider *imageProvider;
     ImageCropper *cropper;

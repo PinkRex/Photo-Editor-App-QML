@@ -1,5 +1,6 @@
 #include "SnipController.h"
 #include "globals/AppState.h"
+#include "controllers/ActionLogController.h"
 
 SnipController::SnipController(QObject *parent) : QObject(parent) {}
 
@@ -32,4 +33,8 @@ void SnipController::finishSnip(int x, int y, int w, int h) {
 
     m_statusController->setEditedStatusText("Snapped image");
     AppState::instance()->setCurrentImage(cropped);
+
+    // Log action
+    QString path = AppState::instance()->imageUrl();
+    ActionLogController::instance()->pushAction(QString("Screenshot saved to RAM: %1").arg(path));
 }

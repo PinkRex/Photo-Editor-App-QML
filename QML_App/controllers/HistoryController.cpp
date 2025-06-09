@@ -1,6 +1,7 @@
 #include "HistoryController.h"
 #include "globals/AppState.h"
 #include "globals/Helper.h"
+#include "controllers/ActionLogController.h"
 
 std::deque<cv::Mat> HistoryController::undoStack;
 std::deque<cv::Mat> HistoryController::redoStack;
@@ -48,9 +49,15 @@ void HistoryController::undo(QPixmap currentImage) {
         cv::Mat top = undoStack.back();
         undoStack.pop_back();
         AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(top));
+
+        // Log action
+        ActionLogController::instance()->pushAction(QString("Undo"));
         return;
     }
     AppState::instance()->setCurrentImage(currentImage);
+
+    // Log action
+    ActionLogController::instance()->pushAction(QString("Undo"));
 }
 
 void HistoryController::redo(QPixmap currentImage) {
@@ -64,7 +71,13 @@ void HistoryController::redo(QPixmap currentImage) {
         cv::Mat top = redoStack.back();
         redoStack.pop_back();
         AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(top));
+
+        // Log action
+        ActionLogController::instance()->pushAction(QString("Redo"));
         return;
     }
     AppState::instance()->setCurrentImage(currentImage);
+
+    // Log action
+    ActionLogController::instance()->pushAction(QString("Redo"));
 }

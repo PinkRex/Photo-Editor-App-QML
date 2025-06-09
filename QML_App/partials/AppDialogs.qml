@@ -12,12 +12,34 @@ Item {
     property alias disabledDialog: disabledDialog
     property alias cropGuideDialog: cropGuideDialog
     property alias snipWarningDialog: snipWarningDialog
+    property alias copySuccessDialog: copySuccessDialog
+    property alias exportLogSuccessDialog: exportLogSuccessDialog
+    property alias logListEmptyDialog: logListEmptyDialog
+
+    property string exportText: "Export Success."
 
     id: appDialogs
 
     CustomDialog {
         id: errorDialog
         text: "No image is currently open."
+    }
+
+    CustomDialog {
+        id: copySuccessDialog
+        text: "Logs successfully copied to clipboard."
+        customWidth: 350
+    }
+
+    CustomDialog {
+        id: logListEmptyDialog
+        text: "Log list is empty."
+    }
+
+    CustomDialog {
+        id: exportLogSuccessDialog
+        text: exportText
+        customWidth: 500
     }
 
     CustomDialog {

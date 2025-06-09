@@ -333,6 +333,16 @@ ApplicationWindow {
         Menu {
             id: helpMenu
             title: qsTr("Help")
+            MenuItem {
+                text: qsTr("Toggle Logger")
+                onTriggered: {
+                    if (rightColumn.opacity === 1) {
+                        rightColumn.opacity = 0
+                    } else {
+                        rightColumn.opacity = 1
+                    }
+                }
+            }
             MenuItem { text: qsTr("About"); onTriggered: appDialogs.aboutDialog.open() }
         }
         Menu {
@@ -400,36 +410,12 @@ ApplicationWindow {
 
             Text {
                 textFormat: Text.RichText
-                text: "<span style='font-size:25px;'>🕒</span> <span style='font-size:16px; font-weight:bold;'>Undo History</span>"
-                padding: 6
-            }
-
-            Rectangle {
-                id: imageListArea
-                Layout.fillWidth: true
-                Layout.preferredHeight: parent.height * 0.3
-                border.color: "#cccccc"
-                Text {
-                    anchors.centerIn: parent
-                    text: "Undo Stack As List View"
-                }
-            }
-
-            Rectangle {
-                height: 1
-                color: "#cccccc"
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignVCenter
-            }
-
-            Text {
-                textFormat: Text.RichText
                 text: "<span style='font-size:25px;'>📜</span> <span style='font-size:16px; font-weight:bold;'>Action Logger</span>"
                 padding: 6
             }
 
             Rectangle {
-                id: pluginListArea
+                id: actionLoggerArea
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
@@ -441,10 +427,47 @@ ApplicationWindow {
                         Layout.fillHeight: true
                         Layout.alignment: Qt.AlignTop
                         border.color: "#cccccc"
-                        Text {
-                            anchors.centerIn: parent
-                            text: "Logger Content"
-                            color: "#333333"
+                        clip: true
+
+                        ListView {
+                            id: logList
+                            width: parent.width
+                            height: parent.height
+                            model: actionLog.model
+
+                            onCountChanged: {
+                                logList.positionViewAtBeginning()
+                            }
+
+                            delegate: Item {
+                                width: ListView.view.width
+                                height: contentItem.implicitHeight + 10
+
+                                Rectangle {
+                                    anchors.fill: parent
+                                    color: "transparent"
+
+                                    Column {
+                                        id: contentItem
+                                        spacing: 4
+                                        anchors.margins: 8
+                                        anchors.fill: parent
+
+                                        Text {
+                                            text: "[" + timestamp + "]"
+                                            font.pixelSize: 14
+                                            color: "#888"
+                                        }
+
+                                        Text {
+                                            text: action
+                                            font.pixelSize: 14
+                                            wrapMode: Text.Wrap
+                                            width: parent.width
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -458,8 +481,7 @@ ApplicationWindow {
                             text: "Clear"
                             Layout.fillWidth: true
                             onClicked: {
-                                console.log("Enable clicked")
-                                // TODO: trigger enablePlugin()
+                                actionLog.clearLogs()
                             }
                         }
 
@@ -467,8 +489,7 @@ ApplicationWindow {
                             text: "Copy"
                             Layout.fillWidth: true
                             onClicked: {
-                                console.log("Disable clicked")
-                                // TODO: trigger disablePlugin()
+                                actionLog.copyLogs()
                             }
                         }
 
@@ -476,8 +497,7 @@ ApplicationWindow {
                             text: "Export"
                             Layout.fillWidth: true
                             onClicked: {
-                                console.log("Unload clicked")
-                                // TODO: trigger unloadPlugin()
+                                actionLog.exportLogs()
                             }
                         }
                     }

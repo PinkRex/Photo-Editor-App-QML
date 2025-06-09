@@ -5,6 +5,7 @@ import QtQuick.Controls.Fusion
 Item {
     property alias imagePath: image.source
     property var controller
+    property var logger
     property real imageScale: 1.0
     property bool imageLoaded: false
     property int toolbarMargin: 0
@@ -17,8 +18,6 @@ Item {
         contentWidth: image.implicitWidth * root.imageScale
         contentHeight: image.implicitHeight * root.imageScale
         clip: true
-
-        // Giải pháp tạm thời cho bug chạm vào là lệch ảnh
         interactive: false
 
         Image {
@@ -29,7 +28,6 @@ Item {
             height: implicitHeight * root.imageScale
 
             onStatusChanged: {
-                console.log("Image Source: " + controller.imageUrl);
                 if (status === Image.Ready) {
                     root.imageLoaded = true
                     root.setInitialScaleAndCenter()
@@ -65,11 +63,13 @@ Item {
     function zoomIn() {
         imageScale = Math.min(imageScale * 1.1, 5.0)
         Qt.callLater(centerImage)
+        logger.pushAction("Zoom in image")
     }
 
     function zoomOut() {
         imageScale = Math.max(imageScale / 1.1, 0.2)
         Qt.callLater(centerImage)
+        logger.pushAction("Zoom out image")
     }
 
     function resetScale() {

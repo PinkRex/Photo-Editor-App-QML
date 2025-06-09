@@ -26,6 +26,22 @@ Item {
     }
 
     Connections {
+        target: actionLog
+        function onShowCopySuccessDialog() {
+            appDialogs.copySuccessDialog.open()
+        }
+
+        function onShowListEmptyDialog() {
+            appDialogs.logListEmptyDialog.open()
+        }
+
+        function onShowExportSuccessDialog(path) {
+            appDialogs.exportText = "Log list successfully exported to: " + path
+            appDialogs.exportLogSuccessDialog.open()
+        }
+    }
+
+    Connections {
         target: pluginController
         function onShowConfirmDialog() {
             appDialogs.pluginConfirmDialog.open()

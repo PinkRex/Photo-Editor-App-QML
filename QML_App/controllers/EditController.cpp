@@ -2,6 +2,7 @@
 #include "globals/AppState.h"
 #include "globals/Helper.h"
 #include "controllers/HistoryController.h"
+#include "controllers/ActionLogController.h"
 
 EditController::EditController(QObject *parent) : QObject(parent) {}
 
@@ -44,6 +45,13 @@ void EditController::rotate(double step) {
     cv::Mat rotated = rotatedImage(currentImage, step);
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(rotated));
     m_statusController->setEditedStatusText("(eddited image)");
+
+    // Log action
+    if (step < 0) {
+        ActionLogController::instance()->pushAction(QString("Rotate right: 90°"));
+    } else {
+        ActionLogController::instance()->pushAction(QString("Rotate left: 90°"));
+    }
 }
 
 void EditController::flip(bool isVertical) {
@@ -52,6 +60,13 @@ void EditController::flip(bool isVertical) {
     cv::Mat flipped = flippedImage(currentImage, isVertical);
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(flipped));
     m_statusController->setEditedStatusText("(eddited image)");
+
+    // Log action
+    if (isVertical) {
+        ActionLogController::instance()->pushAction(QString("Flip vertical"));
+    } else {
+        ActionLogController::instance()->pushAction(QString("Flip horizontal"));
+    }
 }
 
 void EditController::resize(int newWidth, int newHeight) {
@@ -63,6 +78,9 @@ void EditController::resize(int newWidth, int newHeight) {
     cv::resize(currentImage, resized, cv::Size(newWidth, newHeight));
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(resized));
     m_statusController->setEditedStatusText("(eddited image)");
+
+    // Log action
+    ActionLogController::instance()->pushAction(QString("Resize to: %1x%2").arg(newWidth).arg(newHeight));
 }
 
 void EditController::crop(int cropX, int cropY, int cropWidth, int cropHeight, int startX, int startY, int viewWidth, int viewHeight) {
@@ -75,4 +93,10 @@ void EditController::crop(int cropX, int cropY, int cropWidth, int cropHeight, i
         AppState::instance()->setCurrentImage(cropped);
         m_statusController->setEditedStatusText("(eddited image)");
     }
+
+    // Log action
+    QPixmap pixmap = AppState::instance()->currentImage();
+    ActionLogController::instance()->pushAction(QString("Crop to: %1x%2 at x: %3, y: %4")
+                                                    .arg(pixmap.width()).arg(pixmap.height())
+                                                    .arg(startX).arg(startY));
 }
