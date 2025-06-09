@@ -50,6 +50,8 @@ void FileController::saveImageAs(const QString &filePath) {
         return;
     }
 
+    emit showSaveSuccessDialog(finalPath);
+
     // Log action
     ActionLogController::instance()->pushAction(QString("Saved file as: %1").arg(finalPath));
 }

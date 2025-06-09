@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QImage>
+#include <opencv2/core/core.hpp>
 #include "controllers/ImageController.h"
 #include "controllers/StatusController.h"
 #include "utils/ImageCropper.h"
@@ -19,6 +20,7 @@ public:
     Q_INVOKABLE void flip(bool isVertical);
     Q_INVOKABLE void resize(int newWidth, int newHeight);
     Q_INVOKABLE void crop(int cropX, int cropY, int cropWidth, int cropHeight, int startX, int startY, int viewWidth, int viewHeight);
+    Q_INVOKABLE void contrast(double constrastValue);
 
     void setImageController(ImageController *controller);
     void setStatusController(StatusController *controller);

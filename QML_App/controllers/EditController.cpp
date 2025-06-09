@@ -44,6 +44,7 @@ void EditController::rotate(double step) {
     HistoryController::instance()->push(currentImage);
     cv::Mat rotated = rotatedImage(currentImage, step);
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(rotated));
+    AppState::instance()->setEdittingBaseImage(Helper::CvMatToQPixmap(rotated));
     m_statusController->setEditedStatusText("(eddited image)");
 
     // Log action
@@ -59,6 +60,7 @@ void EditController::flip(bool isVertical) {
     HistoryController::instance()->push(currentImage);
     cv::Mat flipped = flippedImage(currentImage, isVertical);
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(flipped));
+    AppState::instance()->setEdittingBaseImage(Helper::CvMatToQPixmap(flipped));
     m_statusController->setEditedStatusText("(eddited image)");
 
     // Log action
@@ -77,6 +79,7 @@ void EditController::resize(int newWidth, int newHeight) {
     cv::Mat resized;
     cv::resize(currentImage, resized, cv::Size(newWidth, newHeight));
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(resized));
+    AppState::instance()->setEdittingBaseImage(Helper::CvMatToQPixmap(resized));
     m_statusController->setEditedStatusText("(eddited image)");
 
     // Log action
@@ -91,6 +94,7 @@ void EditController::crop(int cropX, int cropY, int cropWidth, int cropHeight, i
     QPixmap cropped = m_imageCropper->crop(cropX, cropY, cropWidth, cropHeight, startX, startY, viewWidth, viewHeight);
     if (!cropped.isNull()) {
         AppState::instance()->setCurrentImage(cropped);
+        AppState::instance()->setEdittingBaseImage(cropped);
         m_statusController->setEditedStatusText("(eddited image)");
     }
 
@@ -99,4 +103,21 @@ void EditController::crop(int cropX, int cropY, int cropWidth, int cropHeight, i
     ActionLogController::instance()->pushAction(QString("Crop to: %1x%2 at x: %3, y: %4")
                                                     .arg(pixmap.width()).arg(pixmap.height())
                                                     .arg(startX).arg(startY));
+}
+
+void EditController::contrast(double constrastValue) {
+    double contrast = QString::number(constrastValue, 'f', 2).toDouble();
+    double alpha = contrast / 100.0;
+
+    cv::Mat edittingBaseImage = Helper::QPixmapToCvMat(AppState::instance()->edittingBaseImage());
+    HistoryController::instance()->push(edittingBaseImage);
+
+    cv::Mat result;
+    edittingBaseImage.convertTo(result, -1, alpha, 0);
+
+    AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(result));
+    m_statusController->setEditedStatusText("(eddited image)");
+
+    // Log action
+    ActionLogController::instance()->pushAction(QString("Contrast changed to: %1").arg(alpha));
 }

@@ -22,5 +22,6 @@ void ImageController::setImagePath(const QString &path) {
         m_statusController->setStatusText(path);
         AppState::instance()->setCurrentPath(path);
         AppState::instance()->setCurrentImage(pixmap);
+        AppState::instance()->setEdittingBaseImage(pixmap);
     }
 }

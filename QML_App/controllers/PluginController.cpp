@@ -6,6 +6,7 @@
 #include "HistoryController.h"
 #include "globals/AppState.h"
 #include "globals/Helper.h"
+#include "controllers/ActionLogController.h"
 
 PluginController::PluginController(QObject* parent) : QObject(parent), m_pluginModel(new PluginModel(this)) {}
 
@@ -56,14 +57,17 @@ void PluginController::performPlugin(int index) {
     if (!info.hasEditor) {
         info.instance->edit(input, output);
     } else {
-        info.instance->showEditor(input, [this](cv::Mat result, cv::Mat prePlugin) {
+        info.instance->showEditor(input, [this, info](cv::Mat result, cv::Mat prePlugin) {
             if (!result.empty() && !prePlugin.empty()) {
                 cv::Mat outputMat = result;
                 cv::Mat currentImage = Helper::QPixmapToCvMat(AppState::instance()->currentImage());
                 if (areMatsEqual(prePlugin, currentImage)) {
                     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(outputMat));
+                    AppState::instance()->setEdittingBaseImage(Helper::CvMatToQPixmap(outputMat));
+                    ActionLogController::instance()->pushAction(info.name);
                 } else {
                     AppState::instance()->setPluginImage(Helper::CvMatToQPixmap(outputMat));
+                    AppState::instance()->setPluginName(info.name);
                     emit showConfirmDialog();
                 }
             } else {
@@ -74,6 +78,8 @@ void PluginController::performPlugin(int index) {
     }
 
     AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(output));
+    AppState::instance()->setEdittingBaseImage(Helper::CvMatToQPixmap(output));
+    ActionLogController::instance()->pushAction(info.name);
 }
 
 void PluginController::autoLoadPlugins() {

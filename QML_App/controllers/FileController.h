@@ -18,6 +18,9 @@ public:
 
     void setImageController(ImageController *controller);
 
+signals:
+    void showSaveSuccessDialog(const QString &path);
+
 private:
     ImageController *m_imageController = nullptr;
 };
