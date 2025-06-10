@@ -18,6 +18,8 @@ Item {
         contentWidth: image.implicitWidth * root.imageScale
         contentHeight: image.implicitHeight * root.imageScale
         clip: true
+
+        //TODO: FIX THIS
         interactive: false
 
         Image {

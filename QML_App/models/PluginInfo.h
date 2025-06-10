@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QPluginLoader>
-#include "PluginInterface.h"
+#include "interfaces/PluginInterface.h"
 
 struct PluginInfo {
     QString name;

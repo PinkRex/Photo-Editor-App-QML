@@ -6,7 +6,7 @@
 #include <QSet>
 #include <QString>
 #include <QDebug>
-#include "utils/PluginModel.h"
+#include "models/PluginModel.h"
 
 class PluginController : public QObject {
     Q_OBJECT
