@@ -9,8 +9,9 @@
 #include <QStringList>
 #include "controllers/ImageController.h"
 #include "controllers/StatusController.h"
+#include "interfaces/ControllerInterface.h"
 
-class ViewController : public QObject {
+class ViewController : public QObject, public ControllerInterface {
     Q_OBJECT
 
 public:

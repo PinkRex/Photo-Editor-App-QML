@@ -4,8 +4,9 @@
 #include <QObject>
 #include <QString>
 #include "controllers/StatusController.h"
+#include "interfaces/ControllerInterface.h"
 
-class ImageController : public QObject {
+class ImageController : public QObject, public ControllerInterface {
     Q_OBJECT
 
 public:

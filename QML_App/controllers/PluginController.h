@@ -7,8 +7,9 @@
 #include <QString>
 #include <QDebug>
 #include "models/PluginModel.h"
+#include "interfaces/ControllerInterface.h"
 
-class PluginController : public QObject {
+class PluginController : public QObject, public ControllerInterface {
     Q_OBJECT
     Q_PROPERTY(PluginModel* pluginModel READ pluginModel CONSTANT)
 

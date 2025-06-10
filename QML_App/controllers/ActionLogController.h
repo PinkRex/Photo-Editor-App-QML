@@ -9,8 +9,9 @@
 #include <QDateTime>
 #include <QDir>
 #include "models/ActionLogModel.h"
+#include "interfaces/ControllerInterface.h"
 
-class ActionLogController : public QObject {
+class ActionLogController : public QObject, public ControllerInterface {
     Q_OBJECT
     Q_PROPERTY(ActionLogModel* model READ model CONSTANT)
 public:

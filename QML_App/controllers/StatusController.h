@@ -5,8 +5,9 @@
 #include <QObject>
 #include <QFileInfo>
 #include <QPixmap>
+#include "interfaces/ControllerInterface.h"
 
-class StatusController : public QObject {
+class StatusController : public QObject, public ControllerInterface {
     Q_OBJECT
     Q_PROPERTY(QString statusText READ statusText  NOTIFY statusTextChanged)
 

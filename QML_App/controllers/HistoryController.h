@@ -5,8 +5,9 @@
 #include <deque>
 #include <QDebug>
 #include <opencv2/core/core.hpp>
+#include "interfaces/ControllerInterface.h"
 
-class HistoryController : public QObject {
+class HistoryController : public QObject, public ControllerInterface {
     Q_OBJECT
 
 public:

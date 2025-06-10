@@ -10,8 +10,9 @@
 #include <QStandardPaths>
 #include "controllers/ImageController.h"
 #include "controllers/StatusController.h"
+#include "interfaces/ControllerInterface.h"
 
-class SnipController : public QObject {
+class SnipController : public QObject, public ControllerInterface {
     Q_OBJECT
 public:
     explicit SnipController(QObject *parent = nullptr);

@@ -9,8 +9,9 @@
 #include "controllers/ImageController.h"
 #include "controllers/StatusController.h"
 #include "utils/ImageCropper.h"
+#include "interfaces/ControllerInterface.h"
 
-class EditController : public QObject {
+class EditController : public QObject, public ControllerInterface {
     Q_OBJECT
 
 public:

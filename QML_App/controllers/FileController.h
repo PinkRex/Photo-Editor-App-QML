@@ -6,8 +6,9 @@
 #include <QFileInfo>
 #include <QImage>
 #include "controllers/ImageController.h"
+#include "interfaces/ControllerInterface.h"
 
-class FileController : public QObject {
+class FileController : public QObject, public ControllerInterface {
     Q_OBJECT
 
 public:
