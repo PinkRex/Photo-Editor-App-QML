@@ -100,7 +100,7 @@ Item {
         text: "<b>Photo Editor</b><br>" +
               "Developed by Nguyễn Minh Đức<br><br>" +
               "This application was developed as a mini project for the VDT2025 program.<br>" +
-              "Github Repository: <a href='https://github.com/PinkRex/PhotoEditor.git'>Pinkrex/PhotoEditor</a>"
+              "Github Repository: <a href='https://github.com/PinkRex/Photo-Editor-App-QML'>Pinkrex/PhotoEditor</a>"
     }
 
     ResizeDialog {

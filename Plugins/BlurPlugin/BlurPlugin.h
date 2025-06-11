@@ -46,9 +46,6 @@ private:
     ImageProvider* m_imageProvider = nullptr;
 
     QString m_mode = "Gaussian";
-
-    double m_gaussionValue = 0.0;
-    double m_boxValue = 0.0;
 };
 
 #endif // BLURPLUGIN_H
