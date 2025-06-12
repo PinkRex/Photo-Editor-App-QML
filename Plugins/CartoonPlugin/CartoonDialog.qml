@@ -76,9 +76,9 @@ Rectangle {
                 id: classicSmoothnessSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 10
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.classicCartoon(value, classicEdgeSlider.value)
                 }
@@ -89,9 +89,9 @@ Rectangle {
                 id: classicEdgeSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 10
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.classicCartoon(classicSmoothnessSlider.value, value)
                 }
@@ -109,9 +109,9 @@ Rectangle {
                 id: customEdgeSmoothnessSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 10
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.customEdge(
                                 customEdgeSmoothnessSlider.value,
@@ -127,9 +127,9 @@ Rectangle {
                 id: customEdgeThicknessSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 5
+                from: 1; to: 5
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.customEdge(
                                 customEdgeSmoothnessSlider.value,
@@ -146,7 +146,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 255
-                stepSize: 1
+                stepSize: 5
                 value: 0
                 onValueChanged: {
                     plugin.customEdge(
@@ -164,7 +164,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 255
-                stepSize: 1
+                stepSize: 5
                 value: 0
                 onValueChanged: {
                     plugin.customEdge(
@@ -182,7 +182,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 255
-                stepSize: 1
+                stepSize: 5
                 value: 0
                 onValueChanged: {
                     plugin.customEdge(
@@ -206,9 +206,9 @@ Rectangle {
                 id: toonShadingLevelSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 16
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.toonShading(toonShadingLevelSlider.value, toonShadingEdgeSlider.value)
                 }
@@ -219,9 +219,9 @@ Rectangle {
                 id: toonShadingEdgeSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 10
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.toonShading(toonShadingLevelSlider.value, toonShadingEdgeSlider.value)
                 }
@@ -239,9 +239,9 @@ Rectangle {
                 id: comicBookLevelSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 16
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.comicBook(comicBookThresholdSlider.value, comicBookEdgeSlider.value, comicBookLevelSlider.value)
                 }
@@ -252,9 +252,9 @@ Rectangle {
                 id: comicBookEdgeSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 10
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.comicBook(comicBookThresholdSlider.value, comicBookEdgeSlider.value, comicBookLevelSlider.value)
                 }
@@ -265,9 +265,9 @@ Rectangle {
                 id: comicBookThresholdSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 10
+                from: 1; to: 10
                 stepSize: 1
-                value: 0
+                value: 1
                 onValueChanged: {
                     plugin.comicBook(comicBookThresholdSlider.value, comicBookEdgeSlider.value, comicBookLevelSlider.value)
                 }
@@ -280,7 +280,7 @@ Rectangle {
             spacing: 10
 
             Button {
-                text: "OK"
+                text: "Apply"
                 onClicked: plugin.onOkClicked(previewImage.source)
             }
 
@@ -292,18 +292,18 @@ Rectangle {
             Button {
                 text: "Reset"
                 onClicked: {
-                    classicSmoothnessSlider.value = 0;
-                    classicEdgeSlider.value = 0;
-                    customEdgeSmoothnessSlider.value = 0;
-                    customEdgeThicknessSlider.value = 0;
+                    classicSmoothnessSlider.value = 1;
+                    classicEdgeSlider.value = 1;
+                    customEdgeSmoothnessSlider.value = 1;
+                    customEdgeThicknessSlider.value = 1;
                     customEdgeRedSlider.value = 0;
                     customEdgeGreenSlider.value = 0;
                     customEdgeBlueSlider.value = 0;
-                    toonShadingLevelSlider.value = 0;
-                    toonShadingEdgeSlider.value = 0;
-                    comicBookLevelSlider.value = 0;
-                    comicBookEdgeSlider.value = 0;
-                    comicBookThresholdSlider.value = 0;
+                    toonShadingLevelSlider.value = 1;
+                    toonShadingEdgeSlider.value = 1;
+                    comicBookLevelSlider.value = 1;
+                    comicBookEdgeSlider.value = 1;
+                    comicBookThresholdSlider.value = 1;
 
                     plugin.onResetClicked()
                 }

@@ -111,7 +111,7 @@ Rectangle {
             spacing: 10
 
             Button {
-                text: "OK"
+                text: "Apply"
                 onClicked: plugin.onOkClicked(previewImage.source)
             }
 

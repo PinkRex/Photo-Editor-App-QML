@@ -69,6 +69,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 500
+                stepSize: 5
                 value: 100
                 onValueChanged: {
                     plugin.updatePreview(value, brightnessSlider.value)
@@ -81,6 +82,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 200
+                stepSize: 5
                 value: 100
                 onValueChanged: {
                     plugin.updatePreview(contrastSlider.value, value)
@@ -129,8 +131,7 @@ Rectangle {
             spacing: 10
 
             Button {
-                text: "OK"
-                width: 40
+                text: "Apply"
                 onClicked: {
                     plugin.onOkClicked(previewImage.source)
                 }

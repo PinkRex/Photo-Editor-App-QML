@@ -42,9 +42,9 @@ Rectangle {
 
                 onActivated: {
                     if (modeBox.currentText === "Manual RGBA") {
-                        imageContainer.height = mainContainer.height - 270
-                    } else if (modeBox.currentText === "Auto White Balance") {
                         imageContainer.height = mainContainer.height - 220
+                    } else if (modeBox.currentText === "Auto White Balance") {
+                        imageContainer.height = mainContainer.height - 180
                     } else {
                         imageContainer.height = mainContainer.height - 30
                     }
@@ -70,13 +70,13 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 300
-                stepSize: 1
+                stepSize: 5
                 value: 100
                 onValueChanged: {
                     plugin.manualRGBA(manualRedScaleSlider.value,
                                       manualGreenScaleSlider.value,
                                       manualBlueScaleSlider.value,
-                                      manualAlphaScaleSlider.value)
+                                      100)
                 }
             }
 
@@ -86,13 +86,13 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 300
-                stepSize: 1
+                stepSize: 5
                 value: 100
                 onValueChanged: {
                     plugin.manualRGBA(manualRedScaleSlider.value,
                                       manualGreenScaleSlider.value,
                                       manualBlueScaleSlider.value,
-                                      manualAlphaScaleSlider.value)
+                                      100)
                 }
             }
 
@@ -102,29 +102,13 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 300
-                stepSize: 1
+                stepSize: 5
                 value: 100
                 onValueChanged: {
                     plugin.manualRGBA(manualRedScaleSlider.value,
                                       manualGreenScaleSlider.value,
                                       manualBlueScaleSlider.value,
-                                      manualAlphaScaleSlider.value)
-                }
-            }
-
-            Text { text: "Alpha Scale: " + manualAlphaScaleSlider.value }
-            Slider {
-                id: manualAlphaScaleSlider
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width * 0.98
-                from: 0; to: 300
-                stepSize: 1
-                value: 100
-                onValueChanged: {
-                    plugin.manualRGBA(manualRedScaleSlider.value,
-                                      manualGreenScaleSlider.value,
-                                      manualBlueScaleSlider.value,
-                                      manualAlphaScaleSlider.value)
+                                      100)
                 }
             }
         }
@@ -141,13 +125,13 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
                 from: 0; to: 100
-                stepSize: 1
-                value: 100
+                stepSize: 5
+                value: 0
                 onValueChanged: {
                     plugin.autoWhiteBalance(
                                 autoBalanceStrengthSlider.value,
                                 autoBalanceGraySlider.value,
-                                autoBalancePreserveSaturationSwitch.checked)
+                                true)
                 }
             }
 
@@ -156,26 +140,14 @@ Rectangle {
                 id: autoBalanceGraySlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 128; to: 255
-                stepSize: 1
-                value: 200
+                from: 0; to: 255
+                stepSize: 5
+                value: 0
                 onValueChanged: {
                     plugin.autoWhiteBalance(
                                 autoBalanceStrengthSlider.value,
                                 autoBalanceGraySlider.value,
-                                autoBalancePreserveSaturationSwitch.checked)
-                }
-            }
-
-            Switch {
-                id: autoBalancePreserveSaturationSwitch
-                text: "Preserve Saturation"
-                checked: true
-                onCheckedChanged: {
-                    plugin.autoWhiteBalance(
-                                autoBalanceStrengthSlider.value,
-                                autoBalanceGraySlider.value,
-                                autoBalancePreserveSaturationSwitch.checked)
+                                true)
                 }
             }
         }
@@ -186,7 +158,7 @@ Rectangle {
             spacing: 10
 
             Button {
-                text: "OK"
+                text: "Apply"
                 onClicked: plugin.onOkClicked(previewImage.source)
             }
 
@@ -201,10 +173,8 @@ Rectangle {
                     manualRedScaleSlider.value = 100
                     manualGreenScaleSlider.value = 100
                     manualBlueScaleSlider.value = 100
-                    manualAlphaScaleSlider.value = 100
-                    autoBalanceStrengthSlider.value = 100
-                    autoBalanceGraySlider.value = 200
-                    autoBalancePreserveSaturationSwitch.checked = true
+                    autoBalanceStrengthSlider.value = 0
+                    autoBalanceGraySlider.value = 0
 
                     plugin.onResetClicked()
                 }

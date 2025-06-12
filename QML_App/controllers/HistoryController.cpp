@@ -52,12 +52,14 @@ void HistoryController::undo(QPixmap currentImage) {
         AppState::instance()->setEdittingBaseImage(Helper::CvMatToQPixmap(top));
 
         // Log action
+        if (undoStack.empty()) return;
         ActionLogController::instance()->pushAction(QString("Undo"));
         return;
     }
     AppState::instance()->setCurrentImage(currentImage);
 
     // Log action
+    if (undoStack.empty()) return;
     ActionLogController::instance()->pushAction(QString("Undo"));
 }
 
@@ -74,6 +76,7 @@ void HistoryController::redo(QPixmap currentImage) {
         AppState::instance()->setCurrentImage(Helper::CvMatToQPixmap(top));
 
         // Log action
+        if (redoStack.empty()) return;
         ActionLogController::instance()->pushAction(QString("Redo"));
         return;
     }
@@ -81,5 +84,6 @@ void HistoryController::redo(QPixmap currentImage) {
     AppState::instance()->setEdittingBaseImage(currentImage);
 
     // Log action
+    if (redoStack.empty()) return;
     ActionLogController::instance()->pushAction(QString("Redo"));
 }

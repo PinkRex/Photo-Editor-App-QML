@@ -72,7 +72,7 @@ Rectangle {
                 id: rectKernelSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 31
+                from: 0; to: 10
                 stepSize: 1
                 value: 0
                 onValueChanged: {
@@ -105,7 +105,7 @@ Rectangle {
                 id: ellipseKernelSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 31
+                from: 0; to: 10
                 stepSize: 1
                 value: 0
                 onValueChanged: {
@@ -138,7 +138,7 @@ Rectangle {
                 id: crossKernelSlider
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.98
-                from: 0; to: 31
+                from: 0; to: 10
                 stepSize: 1
                 value: 0
                 onValueChanged: {
@@ -166,7 +166,7 @@ Rectangle {
             spacing: 10
 
             Button {
-                text: "OK"
+                text: "Apply"
                 onClicked: plugin.onOkClicked(previewImage.source)
             }
 
