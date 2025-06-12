@@ -105,8 +105,8 @@ void EditController::crop(int cropX, int cropY, int cropWidth, int cropHeight, i
                                                     .arg(startX).arg(startY));
 }
 
-void EditController::contrast(double constrastValue) {
-    double contrast = QString::number(constrastValue, 'f', 2).toDouble();
+void EditController::bright(double brightValue) {
+    double contrast = QString::number(brightValue, 'f', 2).toDouble();
     double alpha = contrast / 100.0;
 
     cv::Mat edittingBaseImage = Helper::QPixmapToCvMat(AppState::instance()->edittingBaseImage());

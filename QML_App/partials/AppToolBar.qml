@@ -306,19 +306,19 @@ Item {
                         icon.width: 25
                         icon.height: 25
                         ToolTip.visible: hovered
-                        ToolTip.text: "Adjust Contrast"
+                        ToolTip.text: "Adjust Brightness"
                         onClicked: {
                             if (appState.getDefaultUrl() === appState.imageUrl) {
                                 appDialogs.errorDialog.open()
                             } else {
-                                contrastSliderPopup.open()
+                                brightSliderPopup.open()
                             }
                         }
                     }
                     Popup {
                         property bool suppressChanges: false
 
-                        id: contrastSliderPopup
+                        id: brightSliderPopup
                         y: contrastButton.height + 10
                         x: contrastButton.x - 80
                         modal: false
@@ -332,15 +332,15 @@ Item {
                         contentItem: Column {
                             spacing: 6
                             Slider {
-                                id: contrastSlider
+                                id: brightSlider
                                 from: 0
                                 to: 500
                                 value: 100
                                 stepSize: 5
                                 width: 197
                                 onValueChanged: {
-                                    if (!contrastSliderPopup.suppressChanges) {
-                                        editController.contrast(value)
+                                    if (!brightSliderPopup.suppressChanges) {
+                                        editController.bright(value)
                                     }
                                 }
                             }
@@ -350,7 +350,7 @@ Item {
                         onVisibleChanged: {
                             if (!visible) {
                                 suppressChanges = true
-                                contrastSlider.value = 100
+                                brightSlider.value = 100
                                 suppressChanges = false
                             }
                         }
