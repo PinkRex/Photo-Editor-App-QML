@@ -31,7 +31,7 @@ This application was created as a mini project for the **VDT2025** program.
 
 ### Installation
 
-> ⚠️ Currently, this app only supports the Xorg display server. The Wayland display server is not yet supported.
+> ⚠️ Currently, Snip Screen option only supports the Xorg display server. The Wayland display server is not yet supported.
 
 **Pre-requisites:**
 - Qt Creator installed on your machine. Follow this [tutorial](https://www.youtube.com/watch?v=sjApF6qnyUI&t=804s).
